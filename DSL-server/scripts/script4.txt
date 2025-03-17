@@ -1,0 +1,54 @@
+VERSION 1.0.0
+
+VAR STR $account$ "12345678"
+VAR FLOAT $balance$ 5000.0
+
+STATE main
+	RESPONSE "欢迎来到银行，请选择服务："
+	RESPONSE "【查看余额】【转账】【退出】"
+	MATCH "查看余额"
+		GOTO checkbalance
+	MATCH "转账"
+		GOTO transfer
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "抱歉，我没有理解您的意思"
+		GOTO main
+
+STATE checkbalance
+	RESPONSE "您的账户余额为：" + $balance$ + "元"
+	RESPONSE "【返回主菜单】【退出】"
+	MATCH "返回主菜单"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		GOTO main
+
+STATE transfer
+	RESPONSE "请输入转账金额："
+    RESPONSE "【1000】【500】【200】"
+	MATCH "1000"
+		RESPONSE "转账成功！转账金额：1000元"
+		ASSIGN FLOAT $balance$ $balance$ - 1000
+		RESPONSE "剩余余额：" + $balance$ + "元"
+		GOTO main
+    MATCH "500"
+		RESPONSE "转账成功！转账金额：500元"
+		ASSIGN FLOAT $balance$ $balance$ - 500
+		RESPONSE "剩余余额：" + $balance$ + "元"
+		GOTO main
+    MATCH "200"
+		RESPONSE "转账成功！转账金额：200元"
+		ASSIGN FLOAT $balance$ $balance$ - 200
+		RESPONSE "剩余余额：" + $balance$ + "元"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "输入无效，返回主菜单"
+		GOTO main
+
+EXIT
+	RESPONSE "感谢使用银行服务，再见！"

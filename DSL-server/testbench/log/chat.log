@@ -1,0 +1,19 @@
+2024-12-27 16:21:28,748 INFO sqlalchemy.engine.Engine SELECT DATABASE()
+2024-12-27 16:21:28,748 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine SELECT @@sql_mode
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine SELECT @@lower_case_table_names
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine DESCRIBE `mydb`.`users`
+2024-12-27 16:21:28,749 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-12-27 16:21:28,750 INFO sqlalchemy.engine.Engine COMMIT
+/home/carl/DSL-server/server
+2024-12-27 16:21:28,980 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-12-27 16:21:28,982 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.username AS users_username, users.password AS users_password 
+FROM users 
+WHERE users.username = %s AND users.password = %s 
+ LIMIT %s
+2024-12-27 16:21:28,982 INFO sqlalchemy.engine.Engine [generated in 0.00013s] ('testuser', 'testpassword', 1)
+2024-12-27 16:21:28,983 INFO sqlalchemy.engine.Engine ROLLBACK
+User testuser is set to offline due to inactivity.

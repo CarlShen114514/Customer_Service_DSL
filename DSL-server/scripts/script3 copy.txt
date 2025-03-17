@@ -1,0 +1,31 @@
+VERSION 1.0.0
+
+VAR STR $book$ "《操作系统》"
+VAR INT $available_copies$ 3
+
+STATE main
+	RESPONSE "欢迎来到图书馆，请选择服务："
+	RESPONSE "【借阅图书】【退出】"
+	MATCH "借阅图书"
+		GOTO borrowbook
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "抱歉，我没有理解您的意思"
+		GOTO wrongstate
+
+STATE borrow_book
+	RESPONSE "借阅成功！您已借阅：" + $book$
+	RESPONSE "【确定】【返回】"
+	MATCH "确定"
+		RESPONSE "借阅成功！您已借阅：" + $book$
+		ASSIGN INT $available_copies$ $available_copies$ - 1
+		GOTO main
+	MATCH "退出"
+		GOTO main
+	DEFAULT
+		RESPONSE "抱歉，我没有理解您的意思"
+		GOTO main
+
+EXIT
+	RESPONSE "感谢使用图书馆服务，再见！"

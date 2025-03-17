@@ -1,0 +1,57 @@
+VERSION 1.0.0
+
+VAR STR $product$ "智能手机"
+VAR INT $quantity$ 50
+VAR FLOAT $price$ 3999.99
+
+STATE main
+	RESPONSE "欢迎来到在线商店，请问有什么可以帮您？"
+	RESPONSE "【查看库存】【购买商品】【退出】"
+	MATCH "查看库存"
+		GOTO check
+	MATCH "购买商品"
+		GOTO purchase
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "抱歉，我没有理解您的意思"
+		GOTO main
+
+STATE check
+	RESPONSE "正在查询库存..."
+	RESPONSE $product$ + " 的库存为：" + $quantity$ + "台"
+	RESPONSE "【返回】【退出】"
+	MATCH "返回"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		GOTO main
+
+STATE purchase
+	RESPONSE "每台 " + $product$ + " 的价格为：" + $price$ + "元"
+	RESPONSE "请输入购买数量："
+    RESPONSE "【1】【2】【3】"
+	MATCH "1"
+		RESPONSE "您已购买1台 " + $product$
+		ASSIGN INT $quantity$ $quantity$ - 1
+		RESPONSE "剩余库存：" + $quantity$ + "台"
+		GOTO main
+    MATCH "2"
+		RESPONSE "您已购买2台 " + $product$
+		ASSIGN INT $quantity$ $quantity$ - 2
+		RESPONSE "剩余库存：" + $quantity$ + "台"
+		GOTO main
+    MATCH "3"
+		RESPONSE "您已购买3台 " + $product$
+		ASSIGN INT $quantity$ $quantity$ - 3
+		RESPONSE "剩余库存：" + $quantity$ + "台"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "输入无效，返回主菜单"
+		GOTO main
+
+EXIT
+	RESPONSE "感谢您的光临，再见！"

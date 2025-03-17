@@ -1,0 +1,46 @@
+VERSION 1.0.0
+
+VAR STR $name$ Carl
+VAR INT $age$ 80
+VAR FLOAT $money$ 1145
+
+STATE main
+	RESPONSE "您好，请问您有什么需要帮助的吗"
+	RESPONSE "【退休金查询】【退休金提取】"
+	MATCH "退休金查询"
+		GOTO query
+	MATCH "退休金提取"
+		GOTO fetch
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "抱歉，我没有理解您的意思"
+        GOTO main
+		
+STATE query
+	RESPONSE "正在查询"
+	RESPONSE "您的退休金金额为:" + $money$ + "元"
+    RESPONSE "【确认】【退出】"
+    MATCH "确认"
+        GOTO main
+    MATCH "退出"
+        GOTO EXIT
+	DEFAULT
+		GOTO main
+	
+STATE fetch
+	RESPONSE "您确认您要提取500元吗？"
+    RESPONSE "【确认】"
+    MATCH "确认"
+        RESPONSE "您已成功提取500元"
+	    ASSIGN FLOAT $money$ $money$ - 500 
+        ASSIGN STR $name$ "shen"
+        RESPONSE "剩余余额：" + $money$ + "元"
+        GOTO main
+	DEFAULT
+        RESPONSE "未提取，返回上一操作"
+		GOTO main
+
+EXIT
+	RESPONSE "您的余额是：" + $money$ + "元"
+    RESPONSE "感谢您的使用，祝您生活愉快！"

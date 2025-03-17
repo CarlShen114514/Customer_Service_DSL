@@ -1,0 +1,63 @@
+VERSION 1.0.0
+
+VAR STR $university_name$ "北京邮电大学"
+VAR STR $nickname$ "北邮"
+VAR INT $established_year$ 1955
+VAR STR $key_subject$ "信息与通信工程"
+VAR INT $ranking$ 1
+
+STATE main
+	RESPONSE "您好，欢迎咨询北京邮电大学相关信息！"
+	RESPONSE "【学校简介】【宿舍介绍】【特色学科】【退出】"
+	MATCH "学校简介"
+		GOTO introduction
+	MATCH "特色学科"
+		GOTO keysubject
+    MATCH "宿舍介绍"
+		GOTO dorm
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		RESPONSE "抱歉，我没理解您的意思，请重新选择。"
+		GOTO main
+
+STATE dorm
+	RESPONSE "北邮最豪华的宿舍是学二"
+	RESPONSE "学二宿舍楼堪称北邮校园内的“豪华宫殿”，整体设计现代化且极具舒适性。"
+    RESPONSE "宿舍内配置独立卫浴、中央空调、热水供应系统，以及高速校园网全覆盖，满足了学生的学习与生活需求。"
+    RESPONSE "每间宿舍都配备了宽敞的书桌、舒适的椅子以及充足的储物空间，窗外更有宜人的校园景致。"
+    RESPONSE "公共区域还有健身房、自习室、共享厨房等设施，为学生提供了全方位的便利。"
+    RESPONSE "无论是居住条件还是生活服务，学二都体现了北邮对学生的贴心关怀和高标准的后勤保障。"
+	RESPONSE "【返回】【退出】"
+	MATCH "返回"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		GOTO main
+
+STATE introduction
+	RESPONSE $university_name$ + "，简称" + $nickname$ + "，成立于" + $established_year$ + "年。"
+	RESPONSE "北邮是中国信息通信领域的重点高校，以\"信息黄埔\"著称。"
+	RESPONSE "【返回】【退出】"
+	MATCH "返回"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		GOTO main
+
+STATE keysubject
+	RESPONSE "北邮的特色学科是：" + $key_subject$ + "，在国内排名第" + $ranking$ + "！"
+	RESPONSE "同时，北邮的计算机科学与技术也是A级的双一流建设学科"
+    RESPONSE "此外，北邮还在人工智能、大数据等领域有广泛的研究和应用。"
+	RESPONSE "【返回】【退出】"
+	MATCH "返回"
+		GOTO main
+	MATCH "退出"
+		GOTO EXIT
+	DEFAULT
+		GOTO main
+
+EXIT
+	RESPONSE "感谢咨询北京邮电大学，祝您生活愉快！"
